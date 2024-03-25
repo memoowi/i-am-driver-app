@@ -1,6 +1,7 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_am_driver/screens/pages/ambulance_page.dart';
 import 'package:i_am_driver/screens/pages/list_page.dart';
 import 'package:i_am_driver/screens/pages/pending_page.dart';
 import 'package:i_am_driver/screens/pages/profile_page.dart';
@@ -54,9 +55,7 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           PendingPage(),
           ListPage(),
-          Container(
-            color: CustomColors.darkColor,
-          ),
+          AmbulancePage(),
           ProfilePage(),
         ],
         onPageChanged: (index) {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_am_driver/bloc/ambulance_bloc.dart';
 import 'package:i_am_driver/bloc/auth_bloc.dart';
 import 'package:i_am_driver/bloc/booking_bloc.dart';
 import 'package:i_am_driver/bloc/booking_list_bloc.dart';
@@ -26,6 +27,9 @@ void main() {
         ),
         BlocProvider(
           create: (context) => PendingListBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AmbulanceBloc(),
         ),
       ],
       child: const MyApp(),
