@@ -59,6 +59,13 @@ class AmbulanceBloc extends Bloc<AmbulanceEvent, AmbulanceState> {
         emit(AmbulanceInitial());
       }
     });
+
+    on<EditLocationAmbulanceEvent>((event, emit) {
+      emit(AmbulanceEditLocationState(
+        latLng: event.latLng,
+      ));
+    });
+
     on<UpdateLocationAmbulanceEvent>((event, emit) async {
       final token = await getToken();
 

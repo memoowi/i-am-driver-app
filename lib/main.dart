@@ -5,9 +5,11 @@ import 'package:i_am_driver/bloc/ambulance_bloc.dart';
 import 'package:i_am_driver/bloc/auth_bloc.dart';
 import 'package:i_am_driver/bloc/booking_bloc.dart';
 import 'package:i_am_driver/bloc/booking_list_bloc.dart';
+import 'package:i_am_driver/bloc/location_bloc.dart';
 import 'package:i_am_driver/bloc/pending_list_bloc.dart';
 import 'package:i_am_driver/screens/auth/login_screen.dart';
 import 'package:i_am_driver/screens/auth/sign_up_screen.dart';
+import 'package:i_am_driver/screens/edit_ambulance_location_screen.dart';
 import 'package:i_am_driver/screens/main_screen.dart';
 import 'package:i_am_driver/screens/splash_screen.dart';
 import 'package:i_am_driver/utils/theme.dart';
@@ -30,6 +32,9 @@ void main() {
         ),
         BlocProvider(
           create: (context) => AmbulanceBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LocationBloc(),
         ),
       ],
       child: const MyApp(),
@@ -70,6 +75,10 @@ class MyApp extends StatelessWidget {
               builder: (context) => MainScreen(
                 index: index ?? 0,
               ),
+            );
+          case '/edit_ambulance_location':
+            return CupertinoPageRoute(
+              builder: (context) => const EditAmbulanceLocationScreen(),
             );
           default:
             return null;

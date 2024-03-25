@@ -16,6 +16,12 @@ class UpdateBasicAmbulanceEvent extends AmbulanceEvent {
       {required this.context, required this.model, required this.licensePlate});
 }
 
+class EditLocationAmbulanceEvent extends AmbulanceEvent {
+  final LatLng latLng;
+
+  EditLocationAmbulanceEvent({required this.latLng});
+}
+
 class UpdateLocationAmbulanceEvent extends AmbulanceEvent {
   final BuildContext context;
   final LatLng latLng;

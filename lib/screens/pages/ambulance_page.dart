@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_am_driver/bloc/ambulance_bloc.dart';
 import 'package:i_am_driver/bloc/auth_bloc.dart';
+import 'package:i_am_driver/bloc/location_bloc.dart';
 import 'package:i_am_driver/utils/theme.dart';
 import 'package:i_am_driver/widgets/custom_filled_button.dart';
 import 'package:i_am_driver/widgets/custom_form_field.dart';
@@ -219,21 +220,33 @@ class _AmbulancePageState extends State<AmbulancePage> {
                           height: 30,
                           color: CustomColors.secondaryColor,
                         ),
-                        TextButton.icon(
-                          onPressed: () {},
-                          icon: Icon(CupertinoIcons.location_fill),
-                          label: Text('Edit Base Location'),
-                          style: TextButton.styleFrom(
-                            textStyle: CustomTextStyles.primaryMadimi.copyWith(
-                              fontSize: 16,
+                        BlocListener<LocationBloc, LocationState>(
+                          listener: (context, state) {
+                            if (state is PermissionGranted) {
+                              Navigator.pushNamed(
+                                  context, '/edit_ambulance_location');
+                            }
+                          },
+                          child: TextButton.icon(
+                            onPressed: () {
+                              context.read<LocationBloc>().add(
+                                  CheckLocationPermission(context: context));
+                            },
+                            icon: Icon(CupertinoIcons.location_fill),
+                            label: Text('Edit Base Location'),
+                            style: TextButton.styleFrom(
+                              textStyle:
+                                  CustomTextStyles.primaryMadimi.copyWith(
+                                fontSize: 16,
+                              ),
+                              backgroundColor: CustomColors.lightColor,
+                              foregroundColor: CustomColors.primaryColor,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 14,
+                              ),
+                              minimumSize: Size(double.infinity, 50),
                             ),
-                            backgroundColor: CustomColors.lightColor,
-                            foregroundColor: CustomColors.primaryColor,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 14,
-                            ),
-                            minimumSize: Size(double.infinity, 50),
                           ),
                         ),
                         SizedBox(height: 20),
