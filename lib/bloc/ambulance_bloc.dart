@@ -101,6 +101,44 @@ class AmbulanceBloc extends Bloc<AmbulanceEvent, AmbulanceState> {
         emit(AmbulanceInitial());
       }
     });
+
+    on<RegisterAmbulanceEvent>((event, emit) async {
+      final token = await getToken();
+
+      try {
+        final response = await dio.post(Config.ambulanceUrl,
+            data: {
+              'model': event.model,
+              'license_plate': event.licensePlate,
+              'latitude': event.latLng.latitude,
+              'longitude': event.latLng.longitude,
+            },
+            options: Options(headers: {
+              'Authorization': 'Bearer $token',
+            }));
+
+        if (response.statusCode == 201) {
+          if (event.context.mounted) {
+            CustomSnackBar.show(
+                message: response.data['message'],
+                icon: Icons.done,
+                context: event.context);
+          }
+          emit(AmbulanceSuccessState());
+        }
+      } on DioException catch (e) {
+        log(e.toString());
+        if (event.context.mounted) {
+          CustomSnackBar.show(
+              message: e.response!.data['message'],
+              icon: Icons.error,
+              context: event.context);
+        }
+        emit(AmbulanceInitial());
+      } finally {
+        emit(AmbulanceInitial());
+      }
+    });
   }
 
   Future<String?> getToken() async {

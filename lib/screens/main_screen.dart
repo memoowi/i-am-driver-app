@@ -1,8 +1,11 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_am_driver/bloc/auth_bloc.dart';
 import 'package:i_am_driver/screens/pages/ambulance_page.dart';
 import 'package:i_am_driver/screens/pages/list_page.dart';
+import 'package:i_am_driver/screens/pages/no_ambulance_page.dart';
 import 'package:i_am_driver/screens/pages/pending_page.dart';
 import 'package:i_am_driver/screens/pages/profile_page.dart';
 import 'package:i_am_driver/utils/theme.dart';
@@ -53,9 +56,45 @@ class _MainScreenState extends State<MainScreen> {
       body: PageView(
         controller: _pageController,
         children: [
-          PendingPage(),
-          ListPage(),
-          AmbulancePage(),
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              if (state is AuthenticatedState) {
+                if (state.user.ambulance != null) {
+                  return PendingPage();
+                } else {
+                  return NoAmbulancePage();
+                }
+              } else {
+                return NoAmbulancePage();
+              }
+            },
+          ),
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              if (state is AuthenticatedState) {
+                if (state.user.ambulance != null) {
+                  return ListPage();
+                } else {
+                  return NoAmbulancePage();
+                }
+              } else {
+                return NoAmbulancePage();
+              }
+            },
+          ),
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              if (state is AuthenticatedState) {
+                if (state.user.ambulance != null) {
+                  return AmbulancePage();
+                } else {
+                  return NoAmbulancePage();
+                }
+              } else {
+                return NoAmbulancePage();
+              }
+            },
+          ),
           ProfilePage(),
         ],
         onPageChanged: (index) {

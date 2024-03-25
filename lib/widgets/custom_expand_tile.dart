@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:i_am_driver/bloc/booking_bloc.dart';
 import 'package:i_am_driver/bloc/booking_list_bloc.dart';
+import 'package:i_am_driver/bloc/location_bloc.dart';
 import 'package:i_am_driver/bloc/pending_list_bloc.dart';
 import 'package:i_am_driver/models/booking_list_model.dart';
 import 'package:i_am_driver/utils/theme.dart';
@@ -300,12 +301,21 @@ class CustomExpandTile extends StatelessWidget {
         Wrap(
           runSpacing: 12.0,
           children: [
-            CustomFilledButton(
-              text: 'Open Map',
-              onPressed: () {
-                Navigator.pushNamed(context, '/booking_location',
-                    arguments: data);
+            BlocListener<LocationBloc, LocationState>(
+              listener: (context, state) {
+                if (state is PermissionGranted) {
+                  Navigator.pushNamed(context, '/booking_location',
+                      arguments: data);
+                }
               },
+              child: CustomFilledButton(
+                text: 'Open Map',
+                onPressed: () {
+                  context
+                      .read<LocationBloc>()
+                      .add(CheckLocationPermission(context: context));
+                },
+              ),
             ),
             status == StatusType.pending ||
                     status == StatusType.accepted ||

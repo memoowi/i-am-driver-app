@@ -13,6 +13,8 @@ import 'package:i_am_driver/screens/auth/sign_up_screen.dart';
 import 'package:i_am_driver/screens/booking_location_screen.dart';
 import 'package:i_am_driver/screens/edit_ambulance_location_screen.dart';
 import 'package:i_am_driver/screens/main_screen.dart';
+import 'package:i_am_driver/screens/register_ambulance_screen.dart';
+import 'package:i_am_driver/screens/register_location_ambulance_screen.dart';
 import 'package:i_am_driver/screens/splash_screen.dart';
 import 'package:i_am_driver/utils/theme.dart';
 
@@ -87,6 +89,18 @@ class MyApp extends StatelessWidget {
             return CupertinoPageRoute(
               builder: (context) => BookingLocationScreen(
                 data: data,
+              ),
+            );
+          case '/register_ambulance':
+            return CupertinoPageRoute(
+              builder: (context) => const RegisterAmbulanceScreen(),
+            );
+          case '/register_ambulance_location':
+            final data = settings.arguments as Map<String, dynamic>;
+            return CupertinoPageRoute(
+              builder: (context) => RegisterLocationAmbulanceScreen(
+                model: data['model'],
+                licensePlate: data['license_plate'],
               ),
             );
           default:
