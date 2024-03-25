@@ -1,13 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:i_am_driver/bloc/ambulance_bloc.dart';
 import 'package:i_am_driver/bloc/auth_bloc.dart';
 import 'package:i_am_driver/bloc/booking_bloc.dart';
 import 'package:i_am_driver/bloc/booking_list_bloc.dart';
+import 'package:i_am_driver/bloc/location_bloc.dart';
 import 'package:i_am_driver/bloc/pending_list_bloc.dart';
+import 'package:i_am_driver/models/booking_list_model.dart';
 import 'package:i_am_driver/screens/auth/login_screen.dart';
 import 'package:i_am_driver/screens/auth/sign_up_screen.dart';
+import 'package:i_am_driver/screens/booking_location_screen.dart';
+import 'package:i_am_driver/screens/edit_ambulance_location_screen.dart';
 import 'package:i_am_driver/screens/main_screen.dart';
+import 'package:i_am_driver/screens/register_ambulance_screen.dart';
+import 'package:i_am_driver/screens/register_location_ambulance_screen.dart';
 import 'package:i_am_driver/screens/splash_screen.dart';
 import 'package:i_am_driver/utils/theme.dart';
 
@@ -26,6 +33,12 @@ void main() {
         ),
         BlocProvider(
           create: (context) => PendingListBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AmbulanceBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LocationBloc(),
         ),
       ],
       child: const MyApp(),
@@ -65,6 +78,29 @@ class MyApp extends StatelessWidget {
             return CupertinoPageRoute(
               builder: (context) => MainScreen(
                 index: index ?? 0,
+              ),
+            );
+          case '/edit_ambulance_location':
+            return CupertinoPageRoute(
+              builder: (context) => const EditAmbulanceLocationScreen(),
+            );
+          case '/booking_location':
+            final data = settings.arguments as BookingData;
+            return CupertinoPageRoute(
+              builder: (context) => BookingLocationScreen(
+                data: data,
+              ),
+            );
+          case '/register_ambulance':
+            return CupertinoPageRoute(
+              builder: (context) => const RegisterAmbulanceScreen(),
+            );
+          case '/register_ambulance_location':
+            final data = settings.arguments as Map<String, dynamic>;
+            return CupertinoPageRoute(
+              builder: (context) => RegisterLocationAmbulanceScreen(
+                model: data['model'],
+                licensePlate: data['license_plate'],
               ),
             );
           default:

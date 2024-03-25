@@ -12,5 +12,5 @@ class Config {
   static const String pendingListUrl = "$baseApiUrl/bookings-pending";
 
   // Ambulances
-  // static const String ambulanceUrl = "$baseApiUrl/ambulances";
+  static const String ambulanceUrl = "$baseApiUrl/ambulances";
 }
