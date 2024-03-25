@@ -7,8 +7,10 @@ import 'package:i_am_driver/bloc/booking_bloc.dart';
 import 'package:i_am_driver/bloc/booking_list_bloc.dart';
 import 'package:i_am_driver/bloc/location_bloc.dart';
 import 'package:i_am_driver/bloc/pending_list_bloc.dart';
+import 'package:i_am_driver/models/booking_list_model.dart';
 import 'package:i_am_driver/screens/auth/login_screen.dart';
 import 'package:i_am_driver/screens/auth/sign_up_screen.dart';
+import 'package:i_am_driver/screens/booking_location_screen.dart';
 import 'package:i_am_driver/screens/edit_ambulance_location_screen.dart';
 import 'package:i_am_driver/screens/main_screen.dart';
 import 'package:i_am_driver/screens/splash_screen.dart';
@@ -79,6 +81,13 @@ class MyApp extends StatelessWidget {
           case '/edit_ambulance_location':
             return CupertinoPageRoute(
               builder: (context) => const EditAmbulanceLocationScreen(),
+            );
+          case '/booking_location':
+            final data = settings.arguments as BookingData;
+            return CupertinoPageRoute(
+              builder: (context) => BookingLocationScreen(
+                data: data,
+              ),
             );
           default:
             return null;

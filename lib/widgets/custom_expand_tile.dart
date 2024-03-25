@@ -302,7 +302,10 @@ class CustomExpandTile extends StatelessWidget {
           children: [
             CustomFilledButton(
               text: 'Open Map',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/booking_location',
+                    arguments: data);
+              },
             ),
             status == StatusType.pending ||
                     status == StatusType.accepted ||
